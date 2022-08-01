@@ -1,40 +1,47 @@
 import {Environment, Fn, StackProps} from "aws-cdk-lib";
 import {BehaviorOptions, CachePolicy} from "aws-cdk-lib/aws-cloudfront";
+import {WebsiteCustomDomain} from "./website";
 
 export interface CoffeeStoreWebDemoStackProps extends StackProps {
-    domainName: string
-    certificateArn: string
-    zoneName: string
+    customDomain: WebsiteCustomDomain
     performCacheInvalidation?: boolean
     additionalDefaultBehaviorOptions?: Omit<BehaviorOptions, 'origin'>;
 }
 
 const CoffeeStoreWebDemoStackPropsPerEnv: Record<string, CoffeeStoreWebDemoStackProps> = {
     // Prod
-    // TODO - move zone here
-    // No zone name - DNS is handled in management account
-    // We could have an apex record on a 'blog.symphonia.io' zone, but zones cost money
+    // TODO - setup zone in accoumt, and test this works with apex record
     '732301731486': {
-        domainName: 'coffeestorewebdemo.symphonia.io',
-        certificateArn: Fn.importValue('StandardCertificate'),
-        zoneName: 'TODO',
+        customDomain: {
+            domains: [{
+                domainName: 'coffeestorewebdemo.symphonia.io',
+                hostedZone: {fromDomainName: 'coffeestorewebdemo.symphonia.io'},
+            }, {
+                domainName: 'www.coffeestorewebdemo.symphonia.io',
+                hostedZone: {fromDomainName: 'coffeestorewebdemo.symphonia.io'},
+            }],
+            certificate: {fromArn: Fn.importValue('StandardCertificate')}
+        },
         performCacheInvalidation: true
     },
     // Test
     '443780941070': {
-        domainName: 'coffeestorewebdemo.test.symphonia.io',
-        certificateArn: Fn.importValue('StandardCertificate'),
-        zoneName: 'test.symphonia.io',
+        customDomain: {
+            domainName: 'coffeestorewebdemo.test.symphonia.io',
+            hostedZone: {fromDomainName: 'test.symphonia.io'},
+            certificate: {fromArn: Fn.importValue('StandardCertificate')}
+        },
         additionalDefaultBehaviorOptions: {
             cachePolicy: CachePolicy.CACHING_DISABLED
         }
     },
     // Mike - Dev
-    // Todo - www.
     '397589511426': {
-        domainName: 'coffeestorewebdemo.mike.symphonia.io',
-        certificateArn: Fn.importValue('StandardCertificate'),
-        zoneName: 'mike.symphonia.io',
+        customDomain: {
+            domainName: 'coffeestorewebdemo.mike.symphonia.io',
+            hostedZone: {fromDomainName: 'mike.symphonia.io'},
+            certificate: {fromArn: Fn.importValue('StandardCertificate')},
+        },
         additionalDefaultBehaviorOptions: {
             cachePolicy: CachePolicy.CACHING_DISABLED
         }

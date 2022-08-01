@@ -3,7 +3,6 @@
     "version": "2022.1.0",
     "private": true,
     "devDependencies": {
-        "@symphoniacloud/cdk-website": "0.x",
         "@tsconfig/node16": "1.x",
         "@types/node": "^16.x",
         "aws-cdk": "2.x",

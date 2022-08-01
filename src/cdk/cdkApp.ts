@@ -2,8 +2,9 @@
 import 'source-map-support/register';
 import {App, Stack} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
-import {Website} from "@symphoniacloud/cdk-website";
+// import {Website} from "@symphoniacloud/cdk-website";
 import {CoffeeStoreWebDemoStackProps, getPropsForDefaultAWSEnvironment} from "./envProps";
+import {Website} from "./website";
 
 const DEFAULT_STACK_NAME = 'coffee-store-web-demo'
 
@@ -11,12 +12,9 @@ class CoffeeStoreWebDemo extends Stack {
     constructor(scope: Construct, id: string, props: CoffeeStoreWebDemoStackProps) {
         super(scope, id, props);
 
+        // TODO - switch to OSS construct once updated for multiple domain names
         new Website(this, 'Website', {
-            customDomain: {
-                domainName: props.domainName,
-                certificate: {fromArn: props.certificateArn},
-                hostedZone: {fromDomainName: props.zoneName}
-            },
+            customDomain: props.customDomain,
             content: {
                 path: 'src/site',
                 performCacheInvalidation: props.performCacheInvalidation

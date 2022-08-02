@@ -1,6 +1,6 @@
 import {Environment, Fn, StackProps} from "aws-cdk-lib";
 import {BehaviorOptions, CachePolicy} from "aws-cdk-lib/aws-cloudfront";
-import {WebsiteCustomDomain} from "./website";
+import {WebsiteCustomDomain} from "@symphoniacloud/cdk-website";
 
 export interface CoffeeStoreWebDemoStackProps extends StackProps {
     customDomain: WebsiteCustomDomain

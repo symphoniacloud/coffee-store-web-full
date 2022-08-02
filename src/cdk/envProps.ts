@@ -9,9 +9,8 @@ export interface CoffeeStoreWebDemoStackProps extends StackProps {
 }
 
 const CoffeeStoreWebDemoStackPropsPerEnv: Record<string, CoffeeStoreWebDemoStackProps> = {
-    // Prod
-    // TODO - setup zone in accoumt, and test this works with apex record
-    '732301731486': {
+    // Opensource account
+    '073101298092': {
         customDomain: {
             domains: [{
                 domainName: 'coffeestorewebdemo.symphonia.io',

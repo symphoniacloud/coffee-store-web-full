@@ -19,7 +19,7 @@ const CoffeeStoreWebDemoStackPropsPerEnv: Record<string, CoffeeStoreWebDemoStack
                 domainName: 'www.coffeestorewebdemo.symphonia.io',
                 hostedZone: {fromDomainName: 'coffeestorewebdemo.symphonia.io'},
             }],
-            certificate: {fromArn: Fn.importValue('StandardCertificate')}
+            certificate: {fromArn: Fn.importValue('CoffeeStoreWebDemoCertificate')}
         },
         performCacheInvalidation: true
     },

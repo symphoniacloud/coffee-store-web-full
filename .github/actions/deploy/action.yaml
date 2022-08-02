@@ -1,0 +1,22 @@
+name: Deploy
+
+description: Deploy
+
+inputs:
+  aws-role-to-assume:
+    description: Which Role to assume for Github OIDC
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: ${{ inputs.aws-role-to-assume }}
+        aws-region: us-east-1
+
+    - run: >
+        npm install && 
+        ./deploy.sh
+      shell: bash

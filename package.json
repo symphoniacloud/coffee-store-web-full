@@ -1,0 +1,17 @@
+{
+    "name": "cdk-website-basic-example",
+    "version": "2022.1.0",
+    "private": true,
+    "devDependencies": {
+        "@tsconfig/node16": "1.x",
+        "@types/node": "^16.x",
+        "aws-cdk": "2.x",
+        "aws-cdk-lib": "2.x",
+        "constructs": "10.x",
+        "ts-node": "10.x",
+        "typescript": "4.x"
+    },
+    "scripts": {
+        "deploy": "npx cdk deploy --require-approval never"
+    }
+}

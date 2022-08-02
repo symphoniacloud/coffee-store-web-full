@@ -1,0 +1,25 @@
+name: Deploy PR to Test
+
+on:
+  pull_request:
+
+# All PRs share the same test stack, so only run this workflow once at any time
+concurrency: ${{ github.workflow }}
+
+# Required because we are using OIDC to connect to AWS
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      # This will automatically checkout the correct branch
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/deploy
+        with:
+          aws-role-to-assume: ${{ secrets.TEST_ACTIONS_ROLE_ARN }}

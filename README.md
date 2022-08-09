@@ -19,7 +19,10 @@ This demo shows various techniques:
 
 ## How to use
 
-This is not a "200 level" example. :) I'm assuming that if you're going to use this example then you understand CDK, deploying to AWS, and the basics of websites, certificates, and DNS.
+This is a somewhat advanced example. Prerequisites are as follows:
+
+* You should already be able to deploy CDK stacks to AWS. For more details on how to do this, see my ["bare bones CDK" example](https://github.com/symphoniacloud/cdk-bare-bones).
+* You should understand the basics of deploying websites, certificates, and DNS.
 
 Overall I recommend you review the entire contents of this repo. Particularly relevant files are:
 
@@ -30,16 +33,16 @@ Overall I recommend you review the entire contents of this repo. Particularly re
 
 Many of the specific elements in this repo are custom, since it is an actual deployed site. Elements that you will likely want to change if you are copying it are:
 
-* The [per-environment properties](src/cdk/envProps.ts) will drastically change. 
+* The [per-environment properties](src/cdk/envProps.ts) will change. 
   * Note the main `CoffeeStoreWebDemoStackPropsPerEnv` constant in that file is keyed by account ID, so these will have to change.
   * Also you'll want to change custom domain names, certificate ARN import details, and hosted zone names (assuming you want to automatically update DNS)
   * For more on this, see the [documentation for the `cdk-website` construct](https://github.com/symphoniacloud/cdk-website)
-* You will want to change `DEFAULT_STACK_NAME` in [cdkApp.ts](src/cdk/cdkApp.ts) . You may also want to be able to change the stack name outside of that file, but that's beyond the scope of this demo
+* You will want to change `DEFAULT_STACK_NAME` in [App.ts](src/cdk/App.ts) . You may also want to be able to change the stack name outside of that file, but that's beyond the scope of this demo
 * If you are generating any content before deployment you will either want to update [deploy.sh](deploy.sh), or update the [custom Github Actions action](.github/actions/deploy/action.yaml) to also build and not just deploy.
-  * You'll probably also want to change `content` -> `path` in [cdkApp.ts](src/cdk/cdkApp.ts)
+  * You'll probably also want to change `content` -> `path` in [App.ts](src/cdk/App.ts)
 * If you are just using static content in the repo, then change the contents of [src/site](src/site)
 * Consider the ["pre process" CloudFront function](src/cloudfront/preProcessFunction.js):
-  * Either delete it, and remove the `preProcessFunctionCode` property in [cdkApp.ts](src/cdk/cdkApp.ts) ...
+  * Either delete it, and remove the `preProcessFunctionCode` property in [App.ts](src/cdk/App.ts) ...
   * ... or update the `manualRedirects` value in [preProcessFunction.js](src/cloudfront/preProcessFunction.js)
 * If you want to use the Github Actions workflows:
   * You'll need to deploy the Github OIDC resources if you haven't done so already. See [here](https://github.com/symphoniacloud/coffee-store-v2/tree/main/github-actions-prereqs) for an example.

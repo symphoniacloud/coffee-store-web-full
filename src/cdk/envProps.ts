@@ -1,6 +1,7 @@
-import {Environment, Fn, StackProps} from "aws-cdk-lib";
+import {App, Fn, StackProps} from "aws-cdk-lib";
 import {BehaviorOptions, CachePolicy} from "aws-cdk-lib/aws-cloudfront";
 import {WebsiteCustomDomain} from "@symphoniacloud/cdk-website";
+import {createStackProps} from "./initSupport";
 
 export interface CoffeeStoreWebDemoStackProps extends StackProps {
     customDomain: WebsiteCustomDomain
@@ -53,24 +54,13 @@ const CoffeeStoreWebDemoStackPropsPerEnv: Record<string, CoffeeStoreWebDemoStack
     },
 }
 
-export function getPropsForDefaultAWSEnvironment(stackName: string): CoffeeStoreWebDemoStackProps {
-    const env = calcEnvironment()
-    const appProps = CoffeeStoreWebDemoStackPropsPerEnv[env.account]
+export function createCoffeeStoreWebDemoStackProps(app: App, defaultStackName: string): CoffeeStoreWebDemoStackProps {
+    const baseStackProps = createStackProps(app, defaultStackName),
+        account = baseStackProps.env.account,
+        appProps = CoffeeStoreWebDemoStackPropsPerEnv[account]
 
     if (!appProps)
-        throw new Error(`No env props for ${JSON.stringify(env)}`)
+        throw new Error(`No env props for account ${account}`)
 
-    return {
-        env, stackName, ...appProps
-    }
-}
-
-export function calcEnvironment(): Required<Environment> {
-    const account = process.env.CDK_DEFAULT_ACCOUNT
-    const region = process.env.CDK_DEFAULT_REGION
-
-    if (account && region)
-        return {account, region}
-
-    throw new Error('Unable to read CDK_DEFAULT_ACCOUNT or CDK_DEFAULT_REGION')
+    return { ...baseStackProps, ...appProps }
 }

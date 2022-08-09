@@ -1,7 +1,13 @@
 {
-    "name": "cdk-website-basic-example",
-    "version": "2022.1.0",
-    "private": true,
+    "name": "coffee-store-web-demo",
+    "version": "2022.1.1",
+    "homepage": "https://github.com/symphoniacloud/coffee-store-web-demo",
+    "license": "MIT",
+    "author": {
+        "email": "mike@symphonia.io",
+        "name": "Mike Roberts",
+        "url": "https://symphonia.io"
+    },
     "devDependencies": {
         "@tsconfig/node16": "1.x",
         "@types/node": "^16.x",
@@ -13,6 +19,10 @@
         "typescript": "4.x"
     },
     "scripts": {
-        "deploy": "npx cdk deploy --require-approval never"
+        "deploy": "npx cdk deploy --output build/cdk.out --require-approval never",
+        "cdk-diff" : "npx cdk diff --output build/cdk.out --require-approval never",
+        "cdk-destroy" : "npx cdk destroy --output build/cdk.out --require-approval never",
+        "precdk-command": "echo \"Running CDK with command: $npm_config_command\"",
+        "cdk-command": "npx cdk $npm_config_command --output build/cdk.out --require-approval never"
     }
 }

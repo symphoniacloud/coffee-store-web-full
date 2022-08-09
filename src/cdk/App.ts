@@ -3,7 +3,7 @@ import 'source-map-support/register';
 import {App, Stack} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import {Website} from "@symphoniacloud/cdk-website";
-import {CoffeeStoreWebDemoStackProps, getPropsForDefaultAWSEnvironment} from "./envProps";
+import {CoffeeStoreWebDemoStackProps, createCoffeeStoreWebDemoStackProps} from "./envProps";
 
 const DEFAULT_STACK_NAME = 'coffee-store-web-demo'
 
@@ -25,6 +25,4 @@ class CoffeeStoreWebDemo extends Stack {
 }
 
 const app = new App();
-const stackName = app.node.tryGetContext('stackName') || DEFAULT_STACK_NAME
-
-new CoffeeStoreWebDemo(app, 'CoffeeStoreWebDemo', getPropsForDefaultAWSEnvironment(stackName));
+new CoffeeStoreWebDemo(app, 'CoffeeStoreWebDemo', createCoffeeStoreWebDemoStackProps(app, DEFAULT_STACK_NAME));

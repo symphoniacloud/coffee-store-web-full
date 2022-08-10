@@ -3,14 +3,19 @@ import {BehaviorOptions, CachePolicy} from "aws-cdk-lib/aws-cloudfront";
 import {WebsiteCustomDomain} from "@symphoniacloud/cdk-website";
 import {createStackProps} from "./initSupport";
 
-export interface CoffeeStoreWebDemoStackProps extends StackProps {
+export interface CoffeeStoreWebFullStackProps extends StackProps {
     customDomain: WebsiteCustomDomain
     performCacheInvalidation?: boolean
     additionalDefaultBehaviorOptions?: Omit<BehaviorOptions, 'origin'>;
 }
 
-const CoffeeStoreWebDemoStackPropsPerEnv: Record<string, CoffeeStoreWebDemoStackProps> = {
-    // Opensource account - this is this demo's "prod" account
+// This example uses 3 'application environments' - prod, test, and development
+// Each app environment is keyed BY AWS ACCOUNT ID. In other words, this code decides which
+// properties to use according to the AWS Account active when the code is run.
+// For your own version you should feel free to have fewer environments, key by something else (e.g. stack name), etc.
+
+const CoffeeStoreWebFullStackPropsPerEnv: Record<string, CoffeeStoreWebFullStackProps> = {
+    // This is this demo's "prod" account
     '073101298092': {
         customDomain: {
             // For this demo we want to serve in production on both the "apex" domain, and "www."
@@ -54,10 +59,10 @@ const CoffeeStoreWebDemoStackPropsPerEnv: Record<string, CoffeeStoreWebDemoStack
     },
 }
 
-export function createCoffeeStoreWebDemoStackProps(app: App, defaultStackName: string): CoffeeStoreWebDemoStackProps {
+export function createCoffeeStoreWebFullStackProps(app: App, defaultStackName: string): CoffeeStoreWebFullStackProps {
     const baseStackProps = createStackProps(app, defaultStackName),
         account = baseStackProps.env.account,
-        appProps = CoffeeStoreWebDemoStackPropsPerEnv[account]
+        appProps = CoffeeStoreWebFullStackPropsPerEnv[account]
 
     if (!appProps)
         throw new Error(`No env props for account ${account}`)

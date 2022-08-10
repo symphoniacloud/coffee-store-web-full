@@ -3,12 +3,12 @@ import 'source-map-support/register';
 import {App, Stack} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import {Website} from "@symphoniacloud/cdk-website";
-import {CoffeeStoreWebDemoStackProps, createCoffeeStoreWebDemoStackProps} from "./envProps";
+import {CoffeeStoreWebFullStackProps, createCoffeeStoreWebFullStackProps} from "./envProps";
 
-const DEFAULT_STACK_NAME = 'coffee-store-web-demo'
+const DEFAULT_STACK_NAME = 'coffee-store-web-full'
 
-class CoffeeStoreWebDemo extends Stack {
-    constructor(scope: Construct, id: string, props: CoffeeStoreWebDemoStackProps) {
+class CoffeeStoreWebFull extends Stack {
+    constructor(scope: Construct, id: string, props: CoffeeStoreWebFullStackProps) {
         super(scope, id, props);
 
         new Website(this, 'Website', {
@@ -25,4 +25,4 @@ class CoffeeStoreWebDemo extends Stack {
 }
 
 const app = new App();
-new CoffeeStoreWebDemo(app, 'CoffeeStoreWebDemo', createCoffeeStoreWebDemoStackProps(app, DEFAULT_STACK_NAME));
+new CoffeeStoreWebFull(app, 'CoffeeStoreWebFull', createCoffeeStoreWebFullStackProps(app, DEFAULT_STACK_NAME));

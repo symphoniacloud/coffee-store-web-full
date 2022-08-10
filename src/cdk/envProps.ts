@@ -9,6 +9,11 @@ export interface CoffeeStoreWebFullStackProps extends StackProps {
     additionalDefaultBehaviorOptions?: Omit<BehaviorOptions, 'origin'>;
 }
 
+// This example uses 3 'application environments' - prod, test, and development
+// Each app environment is keyed BY AWS ACCOUNT ID. In other words, this code decides which
+// properties to use according to the AWS Account active when the code is run.
+// For your own version you should feel free to have fewer environments, key by something else (e.g. stack name), etc.
+
 const CoffeeStoreWebFullStackPropsPerEnv: Record<string, CoffeeStoreWebFullStackProps> = {
     // This is this demo's "prod" account
     '073101298092': {

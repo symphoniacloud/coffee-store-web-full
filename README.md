@@ -13,7 +13,7 @@ This project is an extension of my [CDK bare-bones app for TypeScript](https://g
 
 It's also an extension of my [_Coffee Store Web Basic_](https://github.com/symphoniacloud/coffee-store-web-basic) project - adding custom domain names, setting up multiple environments, using Github Actions, and more. **If you're new to hosting websites on AWS you may want to start with the _Basic_ version first.**
 
-To show this isn't all made up this repository is **really deployed** using the included Github Actions workflows to https://www.coffeestorewebfull.symphonia.io/ !
+To show this isn't all made up this repository is **really deployed** using the included Github Actions workflows to https://www.coffeestorewebdemo.symphonia.io/ !
 
 ## How this project works
 

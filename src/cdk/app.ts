@@ -15,10 +15,10 @@ class CoffeeStoreWebFull extends Stack {
             customDomain: props.customDomain,
             content: {
                 // If you build your site before deployment then change this path to that of your build output
-                path: 'src/site',
+                path: '../site',
                 performCacheInvalidation: props.performCacheInvalidation
             },
-            preProcessFunctionCode: {fromPath: 'src/cloudfront/preProcessFunction.js'},
+            preProcessFunctionCode: {fromPath: '../cloudfront/preProcessFunction.js'},
             additionalDefaultBehaviorOptions: props.additionalDefaultBehaviorOptions
         })
     }

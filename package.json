@@ -19,10 +19,10 @@
         "typescript": "4.x"
     },
     "scripts": {
-        "deploy": "npx cdk deploy --output build/cdk.out --require-approval never",
-        "cdk-diff" : "npx cdk diff --output build/cdk.out --require-approval never",
-        "cdk-destroy" : "npx cdk destroy --output build/cdk.out --require-approval never",
+        "deploy": "cd src/cdk && npx cdk deploy",
+        "cdk-diff" : "cd src/cdk && npx cdk diff",
+        "cdk-destroy" : "cd src/cdk && npx cdk destroy",
         "precdk-command": "echo \"Running CDK with command: $npm_config_command\"",
-        "cdk-command": "npx cdk $npm_config_command --output build/cdk.out --require-approval never"
+        "cdk-command": "cd src/cdk && npx cdk $npm_config_command"
     }
 }

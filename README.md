@@ -80,3 +80,15 @@ My style of using CDK is a little different from the default templates provided 
 If you have questions related to this example please add a Github issue, or drop me a line
 at [mike@symphonia.io](mailto:mike@symphonia.io) . I'm also on Twitter
 at [@mikebroberts](https://twitter.com/mikebroberts) .
+
+## Changelog
+
+### 2022.1
+
+* Move _cdk.json_ to _src/cdk_ directory. This is for a couple of reasons:
+  - One fewer file in project root, which I think is A Good Thing
+  - Makes it easier to have repos with multiple, separate, CDK apps
+* Modify _app.ts_ to point to new (relative) location of site content
+* Move `output` and `requireApproval` CDK settings from _package.json_ to _cdk.json_
+  - I hadn't read the docs enough to know they could be in _cdk.json_. Oops. This way is cleaner
+* Update package-lock.json - these are specific dependency versions I've tested with
